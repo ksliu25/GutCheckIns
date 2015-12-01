@@ -5,6 +5,11 @@ class User < ActiveRecord::Base
 	has_many :stores, foreign_key: "owner_id"
 	has_many :visits, foreign_key: "customer_id"
 
+	def self.authenticate(username, password)
+	  @user = User.find_by(username)
+	  @user if @user && @user.password == password
+	end
+
   def password
     @password ||= BCrypt::Password.new(hashed_password)
   end
