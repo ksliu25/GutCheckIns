@@ -8,6 +8,7 @@ gem 'hashie-forbidden_attributes'
 gem 'honeybadger', '~> 1.16.7'
 gem 'json'
 gem 'napa'
+gem 'bcrypt'
 gem 'roar', '~> 0.12.0'
 gem 'grape-swagger'
 
