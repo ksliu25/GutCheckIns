@@ -158,6 +158,8 @@ GEM
       faraday (~> 0.8, < 0.10)
     shotgun (0.9.1)
       rack (>= 1.0)
+    shoulda-matchers (3.0.1)
+      activesupport (>= 4.0.0)
     simplecov (0.11.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -201,6 +203,7 @@ DEPENDENCIES
   rspec
   rubocop
   shotgun
+  shoulda-matchers
   simplecov
   webmock
 
