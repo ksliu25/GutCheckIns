@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
 
+	validates_presence_of :hashed_password, :username
+	validates_uniqueness_of :username
+
 	validate :password_requirements
 	
 	has_many :stores, foreign_key: "owner_id"
