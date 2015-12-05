@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 	has_many :visits, foreign_key: "customer_id"
 
   def self.authenticate(username, password)
-    @user = User.find_by(username)
+    @user = User.find_by_username(username)
     @user if @user && @user.password == password
   end
 

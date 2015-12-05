@@ -1,17 +1,22 @@
 require 'spec_helper'
 
 describe User, type: :model do
-  let(:new_user){ User.new(username: "Kenneth", password: "password")}
+  let(:new_user){ User.create(username: "Kenneth", password: "password")}
  
-  describe "validations" do
+  describe "basic validations" do
     it {should validate_presence_of(:hashed_password)}
     it {should validate_presence_of(:username)}
+  end
 
-    describe "validates uniqueness of username" do
-      before{User.new(username: "Not Kenneth", password: "password")}
-      it {should validate_uniqueness_of(:username)}
-
+  describe "authenticate" do
+    it "returns a user when provided with valid credentials" do
+      expect(User.authenticate(new_user.username, "password")).to eq(new_user)
     end
+
+    it "returns nil when provided with invalid credentials" do
+      expect(User.authenticate(new_user.username, "NOTpassword")).to eq(nil)
+    end
+
   end
 
   it 'can be created' do
