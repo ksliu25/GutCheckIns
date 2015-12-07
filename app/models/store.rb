@@ -15,9 +15,7 @@ class Store < ActiveRecord::Base
 
 	def generate_4_digit_string
 		string = ""
-		4.times do
-			string += ([0,1,2,3,4,5,6,7,8,9].sample).to_s
-		end
+		4.times { string += ([0,1,2,3,4,5,6,7,8,9].sample).to_s }
 		return string
 	end
 
