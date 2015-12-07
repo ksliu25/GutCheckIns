@@ -5,6 +5,7 @@ require 'rack/test'
 require 'simplecov'
 require 'factory_girl'
 require 'napa/rspec_extensions/response_helpers'
+require 'shoulda-matchers'
 
 FactoryGirl.definition_file_paths = %w(./spec/factories)
 FactoryGirl.find_definitions
@@ -43,5 +44,16 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    # Choose a test framework:
+    with.test_framework :rspec
+
+    # Choose one or more libraries:
+    with.library :active_model
+    # Or, choose the following (which implies all of the above):
   end
 end

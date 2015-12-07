@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    name "MyString"
-    hashed_password "MyString"
+    username "Kenneth"
+    password "password!"
   end
 end
