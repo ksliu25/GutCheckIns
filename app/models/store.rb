@@ -4,7 +4,7 @@ class Store < ActiveRecord::Base
 	validates_presence_of :address, :latitude, :longitude, :daily_code, :owner_id
 
 	before_validation(on: :create) do
-		generate_new_daily_code if self.check_in_code.nil?
+		generate_new_daily_code if self.daily_code.nil?
 	end
 
 	def generate_new_daily_code
