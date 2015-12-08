@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :valid_visit do
+  factory :visit do
     store
     customer
     near_location true

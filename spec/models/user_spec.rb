@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe User, type: :model do
-  # let(:new_user){ User.create(username: "Kenneth", password: "password")}
   let(:new_user){FactoryGirl.create(:user)}
  
   describe "basic validations" do
