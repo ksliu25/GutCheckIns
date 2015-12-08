@@ -7,8 +7,8 @@ class Store < ActiveRecord::Base
 		generate_new_daily_code if self.daily_code.nil?
 	end
 
-	def generate_new_daily_code
-		self.daily_code = generate_4_digit_string
+	def generate_new_daily_code(code = generate_4_digit_string)
+		self.daily_code = code
 	end
 
 	private
