@@ -4,12 +4,12 @@ class Visit < ActiveRecord::Base
 
 
 	validates_presence_of :store_id, :customer_id, :near_location, :check_in_code
-	
+
 	validates :near_location,
 		:inclusion => { :in => [true],
 		:message => "visit must be near store location!" }
 
-	validate :match_daily_code, on: :create
+	validate :match_daily_code, on: :save
 
 	def match_daily_code
 		@store = Store.find(self.store_id)
