@@ -28,13 +28,6 @@ describe Store, type: :model do
   		store.valid?
   		store.daily_code == "DBCRocks!"
   	end
-
-  	# it 'has an owner_id' do
-  	# 	expect store.
-  	# end
-	  # it 'generates a daily code if one is not provided' do
-	  #   Store.new()
-	  # end
   	
   end
 
