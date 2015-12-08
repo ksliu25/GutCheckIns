@@ -1,8 +1,8 @@
 FactoryGirl.define do
-  factory :visit do
-    store_id 1
-    customer_id 1
-    near_location false
-    check_in_code "MyString"
+  factory :valid_visit do
+    store
+    customer
+    near_location true
+    check_in_code "DBCRocks!"
   end
 end
