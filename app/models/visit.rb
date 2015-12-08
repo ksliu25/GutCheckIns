@@ -11,6 +11,8 @@ class Visit < ActiveRecord::Base
 
 	validate :match_daily_code, on: :save
 
+	private
+
 	def match_daily_code
 		@store = Store.find(self.store_id)
 		errors.add(:check_in_code, "Does not match daily code!") unless self.check_in_code == @store.daily_code

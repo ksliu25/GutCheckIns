@@ -15,9 +15,8 @@ class User < ActiveRecord::Base
     @password ||= BCrypt::Password.new(hashed_password)
   end
 
-  def password=(new_password)
-    # store new_password for use later in validations
-    @password = BCrypt::Password.create(new_password)
+  def password=(password)
+    @password = BCrypt::Password.create(password)
     self.hashed_password = @password
   end
 
