@@ -5,6 +5,6 @@ FactoryGirl.define do
     latitude 41.8897170
     longitude -87.6376110
     daily_code "DBCRocks!"
-    owner_id 1
+    owner
   end
 end

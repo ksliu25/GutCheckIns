@@ -54,6 +54,7 @@ Shoulda::Matchers.configure do |config|
 
     # Choose one or more libraries:
     with.library :active_model
+    with.library :active_record
     # Or, choose the following (which implies all of the above):
   end
 end
