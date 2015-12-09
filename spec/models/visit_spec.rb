@@ -12,7 +12,7 @@ describe Visit, type: :model do
   	end
 
 		subject { @invalid_visit = Visit.new(customer: @user, store_id: @store.id, near_location: true, check_in_code: "not_test_code") }
-		
+
   	# it { should validate_presence_of(:store_id) }  
   	it { should validate_presence_of(:customer_id) }  
   	it { should validate_presence_of(:near_location) }  
@@ -47,7 +47,8 @@ describe Visit, type: :model do
 
   it 'can be created' do
   	user = create(:user, username: "Jimmy")
-    visit = create(:visit, customer_id: user.id)
+  	store = create(:store, name: "Jimmy's Store")
+    visit = create(:visit, customer: user, store: store)
     expect(visit).to_not be_nil
   end
 
