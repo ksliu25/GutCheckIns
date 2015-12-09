@@ -4,8 +4,12 @@ describe User, type: :model do
   let(:new_user){FactoryGirl.create(:user)}
  
   describe "basic validations" do
-    it {should validate_presence_of(:hashed_password)}
-    it {should validate_presence_of(:username)}
+    it { should validate_presence_of(:hashed_password) }
+    it { should validate_presence_of(:username) }
+    it { should validate_uniqueness_of(:username) }
+
+    it { should have_many(:visits) }
+    it { should have_many(:stores) }
 
   end
 
