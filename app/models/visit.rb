@@ -2,6 +2,7 @@ class Visit < ActiveRecord::Base
 	belongs_to :store
 	belongs_to :customer, class_name: "User"
 
+	before_validation(on: :create) { match_daily_code }
 
 	validates_presence_of :store_id, :customer_id, :near_location, :check_in_code
 
@@ -9,7 +10,7 @@ class Visit < ActiveRecord::Base
 		:inclusion => { :in => [true],
 		:message => "visit must be near store location!" }
 
-	validate :match_daily_code, on: :save
+	# validate :match_daily_code, on: :save
 
 	private
 
