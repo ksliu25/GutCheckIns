@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe User, type: :model do
-  let(:new_user){FactoryGirl.create(:user)}
  
   describe "basic validations" do
     it { should validate_presence_of(:hashed_password) }
@@ -14,6 +13,7 @@ describe User, type: :model do
   end
 
   describe "authenticate" do
+    let(:new_user){FactoryGirl.create(:user)}
     it "returns a user when provided with valid credentials" do
       expect(User.authenticate(new_user.username, "password")).to eq(new_user)
     end

@@ -8,8 +8,6 @@ describe Store, type: :model do
     expect(store).to_not be_nil
   end
 
-	let(:new_store){FactoryGirl.create(:store)}
-
   describe "validations" do
 
   	it { should validate_presence_of(:name) }  
