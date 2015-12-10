@@ -12,8 +12,6 @@ class Visit < ActiveRecord::Base
 		:inclusion => { :in => [true],
 		:message => "visit must be near store location!" }
 
-	# validate :match_daily_code, on: :save
-
 	private
 
 	def match_daily_code
