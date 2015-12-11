@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
 	has_many :stores, foreign_key: "owner_id"
 	has_many :visits, foreign_key: "customer_id"
+  has_many :visited_stores, through: :visits, source: :store
 
   def num_of_visits_at(store_name)
     @store = Store.where("name like ?", "#{store_name}").first

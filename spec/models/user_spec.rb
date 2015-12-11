@@ -7,9 +7,12 @@ describe User, type: :model do
     it { should validate_presence_of(:username) }
     it { should validate_uniqueness_of(:username) }
 
-    it { should have_many(:visits) }
-    it { should have_many(:stores) }
-
+    context "associations" do
+      it { should have_many(:visits) }
+      it { should have_many(:stores) }
+      it { should have_many(:visited_stores) }
+    end
+    
   end
 
   describe "authenticate" do

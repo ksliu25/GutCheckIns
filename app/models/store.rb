@@ -1,6 +1,7 @@
 class Store < ActiveRecord::Base
 	belongs_to :owner, class_name: "User"
-	has_many :visits 
+	has_many :visits
+	has_many :customers, through: :visits, source: :customer 
 
 	validates_presence_of :name, :address, :latitude, :longitude, :daily_code, :owner_id
 
