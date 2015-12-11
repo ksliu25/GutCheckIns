@@ -10,12 +10,12 @@ class StoresApi < Grape::API
 
   desc 'Create an store'
   params do
-    optional :name, type: String, desc: "Name of store"
-    optional :address, type: String, desc: "Address of store"
-    optional :latitude, type: Float, desc: "Latitude of address provided"
-    optional :longitude, type: Float, desc: "Longitude of address provided"
-    optional :daily_code, type: String, desc: "Daily code for store"
-    optional :owner_id, type: Integer, desc: "Id of store's owner"
+    requires :name, type: String, desc: "Name of store"
+    requires :address, type: String, desc: "Address of store"
+    requires :latitude, type: Float, desc: "Latitude of address provided"
+    requires :longitude, type: Float, desc: "Longitude of address provided"
+    requires :daily_code, type: String, desc: "Daily code for store"
+    requires :owner_id, type: Integer, desc: "Id of store's owner"
   end
 
   post do
@@ -27,10 +27,15 @@ class StoresApi < Grape::API
     requires :id, desc: 'ID of the store'
   end
   route_param :id do
-    desc 'Get an store'
+    desc 'Get a store'
     get do
       store = Store.find(params[:id])
       represent store, with: StoreRepresenter
+    end
+
+    desc 'Get store visits'
+    get :visits do
+      Store.find(params[:id]).visits
     end
 
     desc 'Update an store'
