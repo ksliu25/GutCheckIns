@@ -7,6 +7,14 @@ class User < ActiveRecord::Base
 	has_many :visits, foreign_key: "customer_id"
   has_many :visited_stores, through: :visits, source: :store
 
+  def store_breakdown
+    stores_hash = {}
+    self.array_of_stores.each do |store|
+      stores_hash[store] = num_of_visits_at(store)
+    end
+    return stores_hash
+  end
+
   def array_of_stores
     return self.visited_stores.map(&:name).uniq
   end

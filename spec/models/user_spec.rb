@@ -32,7 +32,13 @@ describe User, type: :model do
       @user = User.create(username: "test_user", password: "password")
       @store = Store.create(name: "DBC Burgers", address: "351 W Hubbard St, Chicago, IL 60654, USA", latitude: 41.8897170, longitude: -87.6376110, daily_code: "test_code", owner: @user)
       @test_visit = Visit.new(customer: @user, store: @store, near_location: true, check_in_code: "test_code")
+    end
 
+    context "#store_breakdown" do
+      it "returns a hash of stores mapped with number of checkins" do
+        @test_visit.save
+        expect(@user.store_breakdown).to eq({"DBC Burgers" => 1})
+      end
     end
 
     context "#array_of_stores" do
