@@ -10,10 +10,10 @@ class VisitsApi < Grape::API
 
   desc 'Create an visit'
   params do
-    optional :store_id, type: Integer, desc: "Id of store where visit is occurring"
-    optional :customer_id, type: Integer, desc: "Id of customer making the visit"
-    optional :near_location, type: Boolean, desc: "Boolean that is checked by the client's geocode"
-    optional :check_in_code, type: String, desc: "Code entered by customer to match store"
+    requires :store_id, type: Integer, desc: "Id of store where visit is occurring"
+    requires :customer_id, type: Integer, desc: "Id of customer making the visit"
+    requires :near_location, type: Boolean, desc: "Boolean that is checked by the client's geocode"
+    requires :check_in_code, type: String, desc: "Code entered by customer to match store"
   end
 
   post do
@@ -31,18 +31,5 @@ class VisitsApi < Grape::API
       represent visit, with: VisitRepresenter
     end
 
-    desc 'Update an visit'
-    params do
-      optional :store_id, type: Integer, desc: "Id of store where visit is occurring"
-      optional :customer_id, type: Integer, desc: "Id of customer making the visit"
-      optional :near_location, type: Boolean, desc: "Boolean that is checked by the client's geocode"
-      optional :check_in_code, type: String, desc: "Code entered by customer to match store"
-    end
-    put do
-      # fetch visit record and update attributes.  exceptions caught in app.rb
-      visit = Visit.find(params[:id])
-      visit.update_attributes!(permitted_params)
-      represent visit, with: VisitRepresenter
-    end
   end
 end

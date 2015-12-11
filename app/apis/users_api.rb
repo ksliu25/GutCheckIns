@@ -10,8 +10,8 @@ class UsersApi < Grape::API
 
   desc 'Create an user'
   params do
-    optional :username, type: String, desc: "username of user"
-    optional :password, type: String, desc: "password for user"
+    requires :username, type: String, desc: "username of user"
+    requires :password, type: String, desc: "password for user"
   end
 
   post do
@@ -27,6 +27,11 @@ class UsersApi < Grape::API
     get do
       user = User.find(params[:id])
       represent user, with: UserRepresenter
+    end
+
+    desc 'Get user visits'
+    get :visits do
+      User.find(params[:id]).visits
     end
 
     desc 'Update an user'
