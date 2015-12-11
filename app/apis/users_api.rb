@@ -31,7 +31,7 @@ class UsersApi < Grape::API
 
     desc 'Get user visits'
     get :visits do
-      User.find(params[:id]).visits
+      visits = User.find(params[:id]).visits
     end
 
     desc 'Update an user'

@@ -25,7 +25,7 @@ class VisitsApi < Grape::API
     requires :id, desc: 'ID of the visit'
   end
   route_param :id do
-    desc 'Get an visit'
+    desc 'Get a visit'
     get do
       visit = Visit.find(params[:id])
       represent visit, with: VisitRepresenter
