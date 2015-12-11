@@ -1,10 +1,16 @@
 class Store < ActiveRecord::Base
-	belongs_to :owner, class_name: "User" 
+	belongs_to :owner, class_name: "User"
+	has_many :visits 
 
 	validates_presence_of :name, :address, :latitude, :longitude, :daily_code, :owner_id
 
 	before_validation(on: :create) do
 		generate_new_daily_code if self.daily_code.nil?
+	end
+
+	def num_of_visits_from(user_name)
+		@user = User.where("username like ?", "#{user_name}").first
+		return self.visits.where("customer_id = ?", "#{@user.id}").count
 	end
 
 	def generate_new_daily_code(code = generate_4_digit_string)
