@@ -6,6 +6,11 @@ class User < ActiveRecord::Base
 	has_many :stores, foreign_key: "owner_id"
 	has_many :visits, foreign_key: "customer_id"
 
+  def num_of_visits_at(store_name)
+    @store = Store.where("name like ?", "#{store_name}").first
+    return self.visits.where("store_id = ?", "#{@store.id}").count
+  end
+
   def self.authenticate(username, password)
     @user = User.find_by_username(username)
     @user if @user && @user.password == password

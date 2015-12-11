@@ -19,13 +19,14 @@ describe StoresApi do
   	end
 
   	context "GET /stores" do
-  		# it "returns all stores" do
+  		it "returns all stores" do
+  			
   		# 	User.create(username: "test_user_5", password: "password")
   		# 	p User.all
   		# 	params = {}
   		# 	get '/stores'
   		# 	response.body.should == ""
-  		# end
+  		end
   	end
 
   # 	end

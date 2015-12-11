@@ -31,4 +31,15 @@ describe Store, type: :model do
   	
   end
 
+  describe "#num_of_visits_from" do
+    before(:each) do
+      @user = User.create(username: "test_user", password: "password")
+      @store = Store.create(name: "DBC Burgers", address: "351 W Hubbard St, Chicago, IL 60654, USA", latitude: 41.8897170, longitude: -87.6376110, daily_code: "test_code", owner: @user)
+    end
+    it "returns the number of check ins when given a store name" do
+      @test_visit = Visit.create(customer: @user, store: @store, near_location: true, check_in_code: "test_code")
+      expect(@store.num_of_visits_from(@user.username)).to eq(1)
+    end
+  end
+
 end
