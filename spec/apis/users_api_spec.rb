@@ -19,7 +19,7 @@ describe UsersApi do
 			it 'can create a single user' do
 				post '/users', params_1
 				expect(last_response.status).to eq(201)
-				expect(JSON.parse(last_response.body)).to eq({"data" => { "object_type" => "user", "id" => "3", "username" => "test_user_1" }})
+				expect(JSON.parse(last_response.body)).to eq({"data" => { "object_type" => "user", "id" => "4", "username" => "test_user_1" }})
 			end
   	end
 
@@ -29,7 +29,7 @@ describe UsersApi do
   			post 'users', params_2
 	  		get '/users'
 	  		expect(last_response.status).to eq(200)
-	  		expect(JSON.parse(last_response.body)).to eq({"data" => [{ "object_type" => "user", "id" => "4", "username" => "test_user_1" }, { "object_type" => "user", "id" => "5", "username" => "test_user_2" }]})
+	  		expect(JSON.parse(last_response.body)).to eq({"data" => [{ "object_type" => "user", "id" => "5", "username" => "test_user_1" }, { "object_type" => "user", "id" => "6", "username" => "test_user_2" }]})
   		end
 
   	end
