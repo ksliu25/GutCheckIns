@@ -23,15 +23,25 @@ class UsersApi < Grape::API
     requires :id, desc: 'ID of the user'
   end
   route_param :id do
-    desc 'Get an user'
+    desc 'Get a user'
     get do
       user = User.find(params[:id])
       represent user, with: UserRepresenter
     end
 
-    desc 'Get user visits'
+    desc 'Get user visits by ascending order'
     get :visits do
-      visits = User.find(params[:id]).visits
+      User.find(params[:id]).visits
+    end
+
+    desc 'Get list of stores and visits per store'
+    get :metrics do
+      User.find(params[:id]).store_breakdown
+    end
+
+    desc 'Get list of stores visited'
+    get :stores do
+      User.find(params[:id]).array_of_stores
     end
 
     desc 'Update an user'

@@ -33,12 +33,22 @@ class StoresApi < Grape::API
       represent store, with: StoreRepresenter
     end
 
-    desc 'Get store visits'
+    desc 'Get store visits by ascending order'
     get :visits do
-      Store.find(params[:id]).visits
+      Store.find(params[:id])
     end
 
-    desc 'Update an store'
+    desc 'Get list of visitors'
+    get :customers do
+      Store.find(params[:id]).array_of_customers
+    end
+
+    desc 'Get customers and visits per customer'
+    get :metrics do
+      Store.find(params[:id]).customer_breakdown
+    end
+
+    desc 'Update a store'
     params do
       optional :name, type: String, desc: "Name of store"
       optional :address, type: String, desc: "Address of store"
