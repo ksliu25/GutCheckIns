@@ -34,16 +34,35 @@ describe Store, type: :model do
   	end
   	
   end
-
-  describe "#num_of_visits_from" do
+  describe "helper methods" do
     before(:each) do
       @user = User.create(username: "test_user", password: "password")
       @store = Store.create(name: "DBC Burgers", address: "351 W Hubbard St, Chicago, IL 60654, USA", latitude: 41.8897170, longitude: -87.6376110, daily_code: "test_code", owner: @user)
+      @test_visit = Visit.new(customer: @user, store: @store, near_location: true, check_in_code: "test_code")
     end
-    it "returns the number of check ins when given a store name" do
-      @test_visit = Visit.create(customer: @user, store: @store, near_location: true, check_in_code: "test_code")
-      expect(@store.num_of_visits_from(@user.username)).to eq(1)
+
+    context "#customer_breakdown" do
+      it "returns a hash of customers and number of visits" do
+        @test_visit.save 
+        expect(@store.customer_breakdown).to eq({"test_user" => 1})
+      end
     end
+
+    context "#array_of_customers" do
+      it "returns an array of customers by username" do
+        @test_visit.save
+        expect(@store.array_of_customers).to eq(["test_user"])
+      end
+    end
+
+    context "#num_of_visits_from" do
+      it "returns the number of check ins when given a store name" do
+        @test_visit.save
+        expect(@store.num_of_visits_from(@user.username)).to eq(1)
+      end
+    end
+    
   end
+
 
 end

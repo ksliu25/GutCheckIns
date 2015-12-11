@@ -9,6 +9,18 @@ class Store < ActiveRecord::Base
 		generate_new_daily_code if self.daily_code.nil?
 	end
 
+	def customer_breakdown
+		customer_hash = {}
+		array_of_customers.each do |customer|
+			customer_hash[customer] = num_of_visits_from(customer)
+		end
+		return customer_hash
+	end
+
+	def array_of_customers
+		return self.customers.map(&:username).uniq
+	end
+
 	def num_of_visits_from(user_name)
 		@user = User.where("username like ?", "#{user_name}").first
 		return self.visits.where("customer_id = ?", "#{@user.id}").count

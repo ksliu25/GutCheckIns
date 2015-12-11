@@ -42,7 +42,7 @@ describe User, type: :model do
     end
 
     context "#array_of_stores" do
-      it "returns an array of stores that have been visited" do
+      it "returns an array of stores that have been visited, by name" do
         @test_visit.save
         expect(@user.array_of_stores).to eq(["DBC Burgers"])
       end
