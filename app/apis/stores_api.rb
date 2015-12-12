@@ -33,9 +33,9 @@ class StoresApi < Grape::API
       represent store, with: StoreRepresenter
     end
 
-    desc 'Get store visits by ascending order'
+    desc 'Get store visits by descending order'
     get :visits do
-      Store.find(params[:id])
+      Store.find(params[:id]).visits.order(created_at: :desc)
     end
 
     desc 'Get list of visitors'

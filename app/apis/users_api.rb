@@ -29,9 +29,9 @@ class UsersApi < Grape::API
       represent user, with: UserRepresenter
     end
 
-    desc 'Get user visits by ascending order'
+    desc 'Get user visits by descending order'
     get :visits do
-      User.find(params[:id]).visits
+      User.find(params[:id]).visits.order(created_at: :desc)
     end
 
     desc 'Get list of stores and visits per store'
