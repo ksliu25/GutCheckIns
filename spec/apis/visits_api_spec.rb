@@ -20,19 +20,19 @@ describe VisitsApi do
   		it "can create a new visit with all the right validations" do
   			post '/visits', valid_visit_params
   			expect(last_response.status).to eq(201)
-  			expect(JSON.parse(last_response.body)).to eq({"data"=>{"object_type" => "visit", "id" => "1", "store_id" => valid_visit_params[:store_id].to_i, "customer_id" => valid_visit_params[:customer_id].to_i, "check_in_code" => "DBCRocks!" }})
+  			expect(last_response.body.include?("DBCRocks!")).to eq(true)
   		end
 
   		it "will return an error if the client-side validations fail for near_location" do
   			post '/visits', invalid_location_visit_params
   			expect(last_response.status).to eq(422)
-  			expect(JSON.parse(last_response.body)).to include("error")
+        expect(last_response.body.include?("visit must be near store location!"))
   		end
 
   		it "will return an error for an invalid code" do
   			post '/visits', invalid_code_visit_params
   			expect(last_response.status).to eq(422)
-  			expect(JSON.parse(last_response.body)).to include("error")
+        expect(last_response.body.include?("Does not match daily code!"))
   		end
 
   	end
