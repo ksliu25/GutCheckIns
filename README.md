@@ -1,3 +1,4 @@
+![logo](resources/GutCheckins.png)
 # Welcome to GutCheckIns!
 GutCheckins is a loyalty rewards webapp that allows a user to "check-in" to an establishment when they visit.
 This specific repo is in regards to the backend of the app which was built using Napa.
