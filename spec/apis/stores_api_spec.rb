@@ -30,14 +30,45 @@ describe StoresApi do
   		end
   	end
 
-  	context "GET /stores/:id" do
-  		it "returns the given store" do
-  			get "/stores/#{@store.id}"
-  			expect(last_response.status).to eq(200)
-  			expect(last_response.body.include?("DBC Burgers")).to eq(true)
-  		end
-  	end
-    
+    describe "single store actions" do
+    	context "GET /stores/:id" do
+    		it "returns the given store" do
+    			get "/stores/#{@store.id}"
+    			expect(last_response.status).to eq(200)
+    			expect(last_response.body.include?("DBC Burgers")).to eq(true)
+    		end
+    	end
+
+      context "GET /stores/:id/visits" do
+        it 'returns visits in ascending order from user' do
+          post '/visits', {store_id: "#{@store.id}", customer_id: "#{@user.id}", near_location: true, check_in_code: "DBCRocks!"}
+          get "/stores/#{@store.id}/visits"
+          expect(last_response.status).to eq(200)
+          expect(last_response.body.include?("DBCRocks!")).to eq(true)
+        end
+      end
+
+      context "GET /stores/:id/customers" do
+        it 'returns visits in ascending order from user' do
+          post '/visits', {store_id: "#{@store.id}", customer_id: "#{@user.id}", near_location: true, check_in_code: "DBCRocks!"}
+          get "/stores/#{@store.id}/customers"
+          expect(last_response.status).to eq(200)
+          expect(last_response.body.include?("test_user_4")).to eq(true)
+        end
+      end
+
+      context "GET /stores/:id/metrics" do
+        it 'returns visits in ascending order from user' do
+          post '/visits', {store_id: "#{@store.id}", customer_id: "#{@user.id}", near_location: true, check_in_code: "DBCRocks!"}
+          get "/stores/#{@store.id}/metrics"
+          expect(last_response.status).to eq(200)
+          expect(last_response.body.include?("test_user_4")).to eq(true)
+          expect(last_response.body.include?("1")).to eq(true)
+
+        end
+      end
+    end
+
   end
 
 end
