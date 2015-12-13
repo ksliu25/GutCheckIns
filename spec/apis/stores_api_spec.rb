@@ -18,7 +18,7 @@ describe StoresApi do
   		it "can create a store given a user" do
   			post '/stores', params_store
   			expect(last_response.status).to eq(201)
-  			expect(JSON.parse(last_response.body)).to eq("data" => {"object_type"=>"store", "id"=>"2", "name"=>"DBC Burgers", "daily_code"=>"DBCRocks!", "owner_id"=>1} )
+  			expect(last_response.body.include?("DBC Burgers")).to eq(true)
   		end
   	end
 
@@ -26,22 +26,49 @@ describe StoresApi do
   		it "returns all stores" do
   			get '/stores'
   			expect(last_response.status).to eq(200)
-  			expect(JSON.parse(last_response.body)).to eq("data" => [{"object_type"=>"store", "id"=>"3", "name"=>"DBC Burgers", "daily_code"=>"DBCRocks!", "owner_id"=>2}] )
+  			expect(last_response.body.include?("DBC Burgers")).to eq(true)
   		end
   	end
 
-  	context "GET /stores/:id" do
-  		it "returns the given store" do
-  			get "/stores/#{@store.id}"
-  			expect(last_response.status).to eq(200)
-  			expect(JSON.parse(last_response.body)).to eq("data" => {"object_type"=>"store", "id"=>"#{@store.id}", "name"=>"#{@store.name}", "daily_code"=>"#{@store.daily_code}", "owner_id"=>"#{@store.owner_id}".to_i})
-  		end
-  	end
+    describe "single store actions" do
+    	context "GET /stores/:id" do
+    		it "returns the given store" do
+    			get "/stores/#{@store.id}"
+    			expect(last_response.status).to eq(200)
+    			expect(last_response.body.include?("DBC Burgers")).to eq(true)
+    		end
+    	end
 
-  # 	end
-  #   it 'needs tests to be written!' do
-  #     pending('write tests for StoresApi!')
-  #   end
+      context "GET /stores/:id/visits" do
+        it 'returns visits in ascending order from user' do
+          post '/visits', {store_id: "#{@store.id}", customer_id: "#{@user.id}", near_location: true, check_in_code: "DBCRocks!"}
+          get "/stores/#{@store.id}/visits"
+          expect(last_response.status).to eq(200)
+          expect(last_response.body.include?("DBCRocks!")).to eq(true)
+        end
+      end
+
+      context "GET /stores/:id/customers" do
+        it 'returns visits in ascending order from user' do
+          post '/visits', {store_id: "#{@store.id}", customer_id: "#{@user.id}", near_location: true, check_in_code: "DBCRocks!"}
+          get "/stores/#{@store.id}/customers"
+          expect(last_response.status).to eq(200)
+          expect(last_response.body.include?("test_user_4")).to eq(true)
+        end
+      end
+
+      context "GET /stores/:id/metrics" do
+        it 'returns visits in ascending order from user' do
+          post '/visits', {store_id: "#{@store.id}", customer_id: "#{@user.id}", near_location: true, check_in_code: "DBCRocks!"}
+          get "/stores/#{@store.id}/metrics"
+          expect(last_response.status).to eq(200)
+          expect(last_response.body.include?("test_user_4")).to eq(true)
+          expect(last_response.body.include?("1")).to eq(true)
+
+        end
+      end
+    end
+
   end
 
 end

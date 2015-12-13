@@ -8,7 +8,7 @@ class VisitsApi < Grape::API
     represent visits, with: VisitRepresenter
   end
 
-  desc 'Create an visit'
+  desc 'Create a visit'
   params do
     requires :store_id, type: Integer, desc: "Id of store where visit is occurring"
     requires :customer_id, type: Integer, desc: "Id of customer making the visit"
