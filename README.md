@@ -1,7 +1,15 @@
 ![logo](resources/GutCheckins.png)
 # Welcome to GutCheckIns!
 GutCheckins is a loyalty rewards webapp that allows a user to "check-in" to an establishment when they visit.
-This specific repo is in regards to the backend of the app which was built using Napa.
+This specific repo is in regards to the backend of the app which was built using Napa and is hosted on heroku at gutcheckins.herokuapp.com
+
+## Testing / Local hosting
+
+After pulling down and bundling, simply run
+<pre><code>
+be rspec spec
+</pre></code>
+to ensure all the tests are properly running and passing.
 
 ## Usage and API Endpoints
 
@@ -23,34 +31,72 @@ curl -X POST -d username="ksliu25" -d password="password" http://gutcheckins.her
 }
 </pre></code>
 
-## Getting all users - GET /users
+### Creating a store owned by a user - POST /stores
 
 <pre><code>
-curl GET "http://gutcheckins.herokuapp.com/users"
-</pre></code>
-
-<pre><code>
-{
-  "data": [{
-    "object_type": "user",
-    "id": "1",
-    "username": "ksliu25"
-  }]
-}
-</pre></code>
-
-## Getting one user - GET /users/:user_id
-
-<pre><code>
-curl GET "http://gutcheckins.herokuapp.com/users/1"
+curl -X POST -d name="DBC Burgers" -d address="351 W Hubbard, Chicago, IL 60654, USA" -d latitude=41.8897170 -d longitude=-87.6376110 -d daily_code="DBCRocks" -d owner_id=1 http://gutcheckins.herokuapp.com/users
 </pre></code>
 
 <pre><code>
 {
   "data": {
-    "object_type": "user",
+    "object_type": "store",
     "id": "1",
-    "username": "ksliu25"
+    "name": "DBC Burgers",
+    "daily_code": "DBCRocks",
+    "owner_id": 1
   }
 }
 </pre></code>
+
+### Creating a Visit at the store with a user - POST /visits
+
+<pre><code>
+curl -X POST -d store_id=1 -d customer_id=1 -d near_location=true -d check_in_code="DBCRocks" http://gutcheckins.herokuapp.com
+</pre></code>
+
+<pre><code>
+{
+  "data": {
+    "object_type": "visit",
+    "id": "1",
+    "store_id": "1",
+    "customer_id": "1",
+    "check_in_code": "DBCRocks"
+  }
+}
+</pre></code>
+
+##Metrics
+
+###Obtain a user's store breakdown - GET /users/:id/metrics
+
+<pre><code>
+curl GET "http://gutcheckins.herokuapp.com/users/1/metrics"
+</pre></code>
+
+<pre><code>
+{
+  "DBC Burgers": 1
+}
+</pre></code>
+
+###Obtain all the stores a user has visited - GET /users/:id/stores
+<pre><code>
+curl GET "http://gutcheckins.herokuapp.com/users/1/stores"
+</pre></code>
+
+<pre><code>
+["DBC Burgers"]
+</pre></code>
+
+###Obtain all visits in ascending order from user - GET /users/:id/visits
+<pre><code>
+curl GET "http://gutcheckins.herokuapp.com/users/1/visits"
+</pre></code>
+
+<pre><code>
+[{"id":1,"store_id":1,"customer_id":1,"near_location":true,"check_in_code":"DBCRocks","created_at":"2015-12-13T04:02:33Z","updated_at":"2015-12-13T04:02:33Z"}]
+</pre></code>
+
+
