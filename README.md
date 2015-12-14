@@ -11,6 +11,9 @@ be rspec spec
 </pre></code>
 to ensure all the tests are properly running and passing.
 
+## Security
+There are 2 main validations for a visit creation, including the "near_location" boolean that ideally will check on the client side if the user is within the required distance to the store (hence why address, latitude, and longitude is provided) along with a "check_in_code" code that is checked alongside the store's "daily_code" to ensure the customer is present at that location.
+
 ## Usage and API Endpoints
 
 ### Create a user - POST /users
@@ -98,5 +101,13 @@ curl GET "http://gutcheckins.herokuapp.com/users/1/visits"
 <pre><code>
 [{"id":1,"store_id":1,"customer_id":1,"near_location":true,"check_in_code":"DBCRocks","created_at":"2015-12-13T04:02:33Z","updated_at":"2015-12-13T04:02:33Z"}]
 </pre></code>
+
+## Below are corresponding endpoints to stores
+<pre><code>
+curl GET "http://gutcheckins.herokuapp.com/stores/1/visits"
+curl GET "http://gutcheckins.herokuapp.com/stores/1/customers"
+curl GET "http://gutcheckins.herokuapp.com/stores/1/metrics"
+</pre></code>
+
 
 
