@@ -14,6 +14,11 @@ to ensure all the tests are properly running and passing.
 ## Security
 There are 2 main validations for a visit creation, including the "near_location" boolean that ideally will check on the client side if the user is within the required distance to the store (hence why address, latitude, and longitude is provided) along with a "check_in_code" code that is checked alongside the store's "daily_code" to ensure the customer is present at that location.
 
+Further, the password field on the users table isn't quite needed at this moment since there is no authorization happening, options are being explored in:
+- Add corresponding password field to POST /stores in order to create a store? (Even then, to what end? Why abuse the creation of stores if there are no rewards set by the owner?)
+- Implement some sort of token-auth such as Grape Token Auth
+- Use Grape's authentication that is suggested in their 'authentication' section
+
 ## Usage and API Endpoints
 
 ### Create a user - POST /users
