@@ -10,6 +10,9 @@ describe UsersApi do
   describe 'e.g. GET, POST, PUT, etc.' do
   	let(:user_params_1){ {username: "test_user_1", password: "password"} }
   	let(:user_params_2){ {username: "test_user_2", password: "password"} }
+  	before do
+			basic_authorize(user_params_1[:username], user_params_1[:password])
+  	end
 
   	context 'POST /users' do
 			it 'can create a single user' do

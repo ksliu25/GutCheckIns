@@ -18,6 +18,7 @@ describe VisitsApi do
 
   	context 'post /visits' do
   		it "can create a new visit with all the right validations" do
+        basic_authorize(@user.username, @user.password)
   			post '/visits', valid_visit_params
   			expect(last_response.status).to eq(201)
   			expect(last_response.body.include?("DBCRocks!")).to eq(true)
