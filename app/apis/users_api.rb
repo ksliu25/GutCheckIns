@@ -1,12 +1,4 @@
 class UsersApi < Grape::API
-  desc 'Get a list of users'
-  params do
-    optional :ids, type: Array, desc: 'Array of user ids'
-  end
-  get do
-    users = params[:ids] ? User.where(id: params[:ids]) : User.all
-    represent users, with: UserRepresenter
-  end
 
   desc 'Create an user'
   params do
@@ -17,6 +9,19 @@ class UsersApi < Grape::API
   post do
     user = User.create!(permitted_params)
     represent user, with: UserRepresenter
+  end
+
+  http_basic do |username, password|
+    User.authenticate(username, password)
+  end
+  
+  desc 'Get a list of users'
+  params do
+    optional :ids, type: Array, desc: 'Array of user ids'
+  end
+  get do
+    users = params[:ids] ? User.where(id: params[:ids]) : User.all
+    represent users, with: UserRepresenter
   end
 
   params do

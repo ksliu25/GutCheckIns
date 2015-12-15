@@ -1,11 +1,7 @@
 class VisitsApi < Grape::API
-  desc 'Get a list of visits'
-  params do
-    optional :ids, type: Array, desc: 'Array of visit ids'
-  end
-  get do
-    visits = params[:ids] ? Visit.where(id: params[:ids]) : Visit.all
-    represent visits, with: VisitRepresenter
+
+  http_basic do |username, password|
+    User.authenticate(username, password)
   end
 
   desc 'Create a visit'

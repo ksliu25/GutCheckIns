@@ -8,6 +8,10 @@ class StoresApi < Grape::API
     represent stores, with: StoreRepresenter
   end
 
+  http_basic do |username, password|
+    User.authenticate(username, password)
+  end
+
   desc 'Create an store'
   params do
     requires :name, type: String, desc: "Name of store"
