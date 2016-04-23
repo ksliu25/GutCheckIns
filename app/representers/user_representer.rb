@@ -1,4 +1,4 @@
 class UserRepresenter < Napa::Representer
-  property :id, type: String
+  property :id, type: Integer
   property :username
 end

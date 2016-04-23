@@ -22,8 +22,8 @@ class Visit < ActiveRecord::Base
 		errors.add(:must_wait, "Cannot check in more than once a day!") if Visit.created_today?(self.store_id, self.customer_id)
 	end
 
-	def Visit.created_today?(store_id, customer_id)
-		Visit.today.where("store_id = ? AND customer_id = ?", store_id, customer_id).any?
+	def self.created_today?(store_id, customer_id)
+		self.today.where("store_id = ? AND customer_id = ?", store_id, customer_id).any?
 	end
 
 
